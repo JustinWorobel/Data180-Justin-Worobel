@@ -9,7 +9,7 @@ output:
   html_document
 ---
 
-18/20. Your code ran fine but your fibonacci function was incorrect. Good job overall. 
+18/20. Your code ran fine but your fibonacci function was incorrect. Good job overall.. 
 
 Make sure that you have accepted the hw invitation link, and working with your clone repository.
 
