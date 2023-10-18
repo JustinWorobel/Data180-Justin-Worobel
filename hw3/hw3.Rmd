@@ -8,6 +8,7 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`' # no need to change date since this 
 output: 
   html_document
 ---
+18/20. Good job.
 
 Make sure that you have accepted the hw invitation link, and working with your clone repository.
 
@@ -77,6 +78,8 @@ ggplot(Cars93, aes(x = EngineSize, y = MPG.city, color = Type)) +
          labs(x = "Engine Size", y = "MPG City", subtitle = "using ggplot to visulaize relationship", caption = "Data: Cars93") + 
   ggtitle("Scatterplot of Engine Size vs. MPG City")+ 
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "red")
+
+# You need to show types or airbag by origin: Driver only, driver and passenger, None by US and non_USA (-2)
 ```
 
 ## Task 4
