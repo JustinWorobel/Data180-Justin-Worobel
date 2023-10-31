@@ -8,7 +8,8 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
 ---
-
+17/ 20
+ 
 **Due date:** October 26 beginning of class.
 
 Let's get some practice with **dplyr**! For this assignment, you will work with Mario Kart data! This data is made available as part of Tidy Tuesday. A codebook is available at https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-05-25.
@@ -116,7 +117,8 @@ records %>%
   ggplot(aes(x= time, fill = type)) +
   geom_histogram(alpha = .5, position = "identity", bins = 30)+
   labs(x = "Record Time", y = "Frequency", title = "Comparison of Times for Single and Three Lap Tracks") 
-  
+
+  # How do record times compare between Single Lap and Three Lap tracks? (-1)
 ```
 
 # Question 9
@@ -151,6 +153,9 @@ meanTimeSystem = records %>%
   group_by(system_played) %>%
   summarize(mean_time = mean(time))
 print(meanTimeSystem)
+
+# Do you observe a difference across the two game systems?(-1)
+# Does this appear to affect performance of records set? (-1)
 ```
 
 You are done! 🏁 Don't forget to commit and push your .Rmd file to your Github repository before the due date. (Well... the checkered flag emoji is now super relevant for this assignment!)
