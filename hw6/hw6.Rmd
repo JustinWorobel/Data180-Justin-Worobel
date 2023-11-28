@@ -8,7 +8,7 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
 ---
-
+18/20. Good
 ```{r global options, include = FALSE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
@@ -164,7 +164,7 @@ plot(1:8, wgssVals, type = "b", pch = 19, frame = FALSE,
 
 
 ```
-# The plot suggests 8 clusters. This is double the suggested amount of clusters from question 2
+# The plot suggests 8 clusters. This is double the suggested amount of clusters from question 2 (-2)
 
 You are done! 🏁 Don't forget to commit and push your .Rmd file to your Github repository before the due date.
 
