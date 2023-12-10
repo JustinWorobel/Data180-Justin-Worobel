@@ -1,0 +1,164 @@
+---
+title: "Final Exam"
+author: "Justin Worobel"
+date: "2023-12-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading CSV
+
+```{r}
+loan = read.csv("/Users/justinworobel/Desktop/Data180-Justin-Worobel/loan_default_data_set.csv")
+```
+
+## 1: Data Wrangling
+
+a: What is the dimension (shape) of the dataset? How many rows and columns does the data set have?
+
+```{r}
+dim(loan)
+# 20000 rows and 21 columns
+```
+
+b: Report the column names of the data set.
+
+```{r}
+names(loan)
+```
+
+c: Which types of data are there in the dataset? Numeric, categorical, ordinal?
+
+```{r}
+# The data is mostly numeric with categorical data representing education levels 
+```
+
+d: Which columns contain missing values and how much (what percent) of those columns are missing?
+
+```{r}
+missing = colSums(is.na(loan))
+percMissing = (missing/nrow(loan)) * 100
+
+print(missing)
+print(percMissing)
+
+#From this we can see that columns "pct_card_over_50_uti"(1958 missing values) and "rep_income"(1559 missing values) both have missing values. The percentage of missing values are 9.790% and 7.795% respectivley 
+```
+
+e: How do you think we should deal with missing values?
+
+```{r}
+#We can deal with them by simply getting rid of them
+loan = na.omit(loan)
+```
+
+f: With this data, would you fit a supervised or an unsupervised learning model? Why?
+
+```{r}
+# A supervised learning model is necesary since the data is being used to predict an outcome. In this case we are using the data to predict whether a candidate should get a loan based on numerous variables. 
+```
+
+g.  For part 2 and 3 drop all rows of the data that contain missing values. Print the dimensions of the resulting data set that has no missing values.
+
+```{r}
+loan = na.omit(loan)
+dim(loan)
+```
+
+## 2: Data summary statistics
+
+a.  Find the summary statistics of the data set. You can use the summary function from dplyr.\
+
+```{r}
+summary(loan)
+```
+
+b.  Based on the mean, mode, and median, is "num_card_inq_24_month" bell shaped, left, right skewed? How about "tot_amount_currently_past_due"? "credit_age"?
+
+```{r}
+# -“num_card_inq_24_month” median = 0 and mean = 1.044 making it right skewed since the mean is greater
+# -“tot_amount_currently_past_due” median = 0 mean = 354.2 making it right skewed 
+# - “credit_age” median = 281 mean = 280.9 making it VERY slightly left skewed but should be approximated as bell-shaped
+```
+
+c.  Plot a histogram of the variables in b above. Do the shapes of the histograms confirm the skewness you found in b?
+
+```{r}
+hist(loan$num_card_inq_24_month, main = "Histogram of Number of Credit Card Inquiries in Last 24 Months", xlab = "Value")
+
+hist(loan$tot_amount_currently_past_due, main = "Histogram of Total Amount Past due for all Credit Accounts", xlab = "Value")
+
+hist(loan$credit_age, main = "Histogram of Age in Months of First Credit Product Obtained by Applicant", xlab = "Value")
+
+#The shapes of the histograms do confirm the skewness 
+```
+
+d.  How would your convert the "rep_education" column into numerical data? Name two ways.
+
+```{r}
+# 1: using the table function
+# 2: using dplyr
+education_counts_table = table(loan$rep_education)
+print(education_counts_table)
+```
+
+## 3: Data Visualization
+
+For every graph in this section, remember to label your axes and to include a title. Feel free to play around with graphics and parameters. Have fun and explore!
+
+a.  Plot a bar graph for the "Def_Ind" column and describe it.
+
+```{r}
+library("ggplot2")
+ggplot(loan, aes(x = factor(Def_ind))) +
+  geom_bar(fill = "skyblue", color = "black") +
+  labs(title = "Bar Graph of Default Indicator",
+       x = "Default Indicator (0 = did not default, 1 = defaulted)" ,
+       y = "Count") +
+  theme_minimal()
+
+#Clearly, a significantly larger portion of those applying for credit have not defaulted on any other credit in the past 18 months 
+```
+
+b.  Plot a bar graph for the "rep_education" column and describe it
+
+```{r}
+ggplot(loan, aes(x = rep_education, fill = rep_education)) +
+  geom_bar(color = "black") +
+  labs(title = "Bar Graph of Education Levels",
+       x = "Education Level",
+       y = "Count") +
+  theme_minimal()
+#The large majority of those applying for credit are college graduates. This is followed by those with high school diplomas then graduate degrees. College graduates just about account as more representative in applying for credit than the other three combined
+```
+
+c.  Plot a histogram of the "rep_income" variable.
+
+```{r}
+ggplot(loan, aes(x = rep_income)) +
+  geom_histogram(binwidth = 5000, fill = "skyblue") +
+  labs(title = "Histogram of Annual Income Variable",
+       x = "Income",
+       y = "Frequency") +
+  scale_x_continuous(labels = scales::comma)
+  theme_minimal()
+```
+
+d.  Plot a boxplot of the "tot_balance" variable. Using the box plot report the five number summary of the variable? Are there any outliers for this variable?
+
+```{r}
+ggplot(loan, aes(x = "", y = tot_balance)) +
+  geom_boxplot(fill = "skyblue", color = "black") +
+  labs(title = "Horizontal Boxplot of tot_balance Variable",
+       y = "Total Balance") +
+  theme_minimal() +
+  coord_flip()
+#Before checking we can see that the minimum is just under 50,000. The first quartile is just under 100,000. the median is about 110,000. The third quartile is just shy of 125,000. and the maximum is around 175,000. There are many reports of income that lie outside the maximum and minimum, these are represented as outliers.
+print("These would be the exact measurements")
+summary(loan$tot_balance)
+
+
+```
