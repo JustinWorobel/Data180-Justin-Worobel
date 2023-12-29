@@ -4,7 +4,7 @@ author: "Justin Worobel"
 date: "2023-12-07"
 output: html_document
 ---
-
+40/40. Good job. 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Loading CSV
 
 ```{r}
-loan = read.csv("/Users/justinworobel/Desktop/Data180-Justin-Worobel/loan_default_data_set.csv")
+loan = read.csv("loan_default_data_set.csv")
 ```
 
 ## 1: Data Wrangling
